@@ -1,0 +1,193 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                          🔑 API KEY 快速参考卡                             ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+📌 【只需做 3 件事】
+
+  ✅ 1️⃣  复制 .env.example → .env
+  ✅ 2️⃣  在 .env 填写你的 API Key
+  ✅ 3️⃣  运行 python main.py
+
+───────────────────────────────────────────────────────────────────────────────
+
+🔐 【需要填写 API Key 的唯一位置】
+
+   文件: .env
+   
+   内容:
+   ┌─────────────────────────────────────────┐
+   │ BRIGHTDATA_API_KEY=你的_API_Key_在这里   │
+   └─────────────────────────────────────────┘
+   
+   示例:
+   ┌─────────────────────────────────────────┐
+   │ BRIGHTDATA_API_KEY=sk_abc123xyz789      │
+   └─────────────────────────────────────────┘
+
+───────────────────────────────────────────────────────────────────────────────
+
+⚠️ 【三个常见错误】
+
+   ❌ 错误 1: BRIGHTDATA_API_KEY=YOUR_BRIGHTDATA_API_KEY_HERE
+      (这是占位符，不是真实 API Key)
+      
+   ❌ 错误 2: BRIGHTDATA_API_KEY = sk_xxxxx
+      (不能有空格！)
+      
+   ❌ 错误 3: BRIGHTDATA_API_KEY="sk_xxxxx"
+      (不需要引号！)
+
+───────────────────────────────────────────────────────────────────────────────
+
+✅ 【正确格式】
+
+   BRIGHTDATA_API_KEY=sk_xxxxxxxxxxxxx
+   
+   规则:
+   • 没有前后空格
+   • 没有引号
+   • 没有等号前后的空格
+
+───────────────────────────────────────────────────────────────────────────────
+
+📋 【其他文件中的 API Key（无需修改）】
+
+   config.py:
+      第 7 行: BRIGHTDATA_API_KEY = os.getenv("...")
+      → 自动从 .env 读取，无需修改
+   
+   instagram_scraper.py:
+      第 23-26 行: self.api_key = BRIGHTDATA_API_KEY
+      → 从 config.py 导入，无需修改
+   
+   tiktok_scraper.py:
+      第 23-26 行: self.api_key = BRIGHTDATA_API_KEY
+      → 从 config.py 导入，无需修改
+
+───────────────────────────────────────────────────────────────────────────────
+
+🔧 【获取 API Key 的步骤】
+
+   Step 1: 访问 https://www.brightdata.com/
+   
+   Step 2: 注册或登录（用 Google/GitHub 快速登录）
+   
+   Step 3: 进入 Dashboard
+           → Products
+           → Web Scraper
+           → API 标签
+   
+   Step 4: 点击 "Create API Token"
+   
+   Step 5: 复制生成的 Key（例如: sk_xxx）
+   
+   Step 6: 粘贴到 .env 文件中
+           BRIGHTDATA_API_KEY=sk_xxx
+
+───────────────────────────────────────────────────────────────────────────────
+
+🚀 【快速启动】
+
+   Windows:
+      1. 双击 setup.bat
+      2. 修改 .env 中的 API Key
+      3. 修改 main.py 中的用户名列表
+      4. 运行: python main.py
+   
+   Linux/Mac:
+      1. 运行: bash setup.sh
+      2. 修改 .env 中的 API Key
+      3. 修改 main.py 中的用户名列表
+      4. 运行: python main.py
+
+───────────────────────────────────────────────────────────────────────────────
+
+💡 【验证 API Key 是否正确】
+
+   方法 1: 查看 .env 文件内容
+      $ cat .env | grep BRIGHTDATA_API_KEY
+      输出应该是: BRIGHTDATA_API_KEY=sk_xxxxx（实际值）
+   
+   方法 2: 运行程序时检查输出
+      $ python main.py
+      看是否显示: ✓ API Key 配置正确
+   
+   方法 3: 在 Bright Data 控制台验证 Token 有效性
+      → Dashboard
+      → API Settings
+      → 检查 Token 状态
+
+───────────────────────────────────────────────────────────────────────────────
+
+📄 【关键文件位置】
+
+   ✅ 主程序:        main.py
+   ✅ 配置文件:      config.py
+   ✅ API 配置:      .env (需要自己创建！)
+   ✅ 模板:          .env.example
+   ✅ 完整文档:      README.md
+   ✅ 详细指南:      API_KEY_SETUP.md
+
+───────────────────────────────────────────────────────────────────────────────
+
+🎯 【修改采集目标】
+
+   编辑 main.py 第 86-100 行:
+   
+   # Instagram 用户名列表
+   instagram_usernames = [
+       "cristiano",      # 改为你想采集的用户
+       "leomessi",
+       "your_target",    # 👈 替换为实际用户名
+   ]
+   
+   # TikTok 用户名列表
+   tiktok_usernames = [
+       "khaby.lame",     # 改为你想采集的用户
+       "your_creator",   # 👈 替换为实际用户名
+   ]
+
+───────────────────────────────────────────────────────────────────────────────
+
+📊 【输出数据】
+
+   成功运行后，output/ 目录中会有:
+   
+   ✓ instagram_influencers.csv      (CSV 格式)
+   ✓ instagram_influencers.xlsx     (Excel 格式)
+   ✓ tiktok_creators.csv           (CSV 格式)
+   ✓ tiktok_creators.xlsx          (Excel 格式)
+   
+   每个文件包含字段:
+   • rank           - 排名
+   • username       - 用户名
+   • followers      - 粉丝数
+   • engagement_rate_pct - 互动率
+   • kol_score      - KOL 评分 (0-100)
+
+───────────────────────────────────────────────────────────────────────────────
+
+❓ 【常见问题】
+
+   Q: 怎么知道 API Key 填对了？
+   A: 运行 python main.py，看是否显示 "✓ API Key 配置正确"
+   
+   Q: 总是显示 "未找到用户"？
+   A: 检查用户名是否存在，是否拼写错误
+   
+   Q: "API 错误 401"？
+   A: API Key 无效或过期，需要重新生成
+   
+   Q: "API 错误 403"？
+   A: Bright Data 账户配额不足或权限不够
+
+───────────────────────────────────────────────────────────────────────────────
+
+🔒 【安全提示】
+
+   ✅ .env 文件已自动添加到 .gitignore（不会上传 Git）
+   ✅ 定期轮换 API Key（每月生成一个新的）
+   ✅ 不要在代码中硬编码 API Key
+   ✅ 泄露 Key 时立即在 Bright Data 删除该 Token
+
+╚════════════════════════════════════════════════════════════════════════════╝
